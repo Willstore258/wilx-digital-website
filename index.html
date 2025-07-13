@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WILX DIGITAL</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e90ff, #ffff00, #ffffff);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .header {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 0 10px #1e90ff, 
+                         0 0 20px #ffff00, 
+                         0 0 30px #ffffff;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #1e90ff, 
+                             0 0 20px #ffff00, 
+                             0 0 30px #ffffff;
+                transform: rotateY(0deg);
+            }
+            to {
+                text-shadow: 0 0 20px #ffff00, 
+                             0 0 30px #ffffff, 
+                             0 0 40px #1e90ff;
+                transform: rotateY(20deg);
+            }
+        }
+        
+        .game-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 20px;
+            width: 80%;
+            max-width: 600px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+        }
+        
+        .game-selector {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 10px;
+            background-color: #f0f0f0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .game-selector:hover {
+            background-color: #e0e0e0;
+            transform: translateY(-3px);
+        }
+        
+        .game-icon {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+            border-radius: 10px;
+        }
+        
+        .game-content {
+            display: none;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            margin-top: 15px;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+        
+        .input-field:focus {
+            border-color: #1e90ff;
+            outline: none;
+        }
+        
+        .diamond-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            margin: 10px 0;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .diamond-option:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background-color: #f0f8ff;
+        }
+        
+        .payment-method {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .qris-btn {
+            background-color: #32CD32;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 15px;
+        }
+        
+        .qris-btn:hover {
+            background-color: #228B22;
+            transform: translateY(-3px);
+        }
+        
+        .qris-image {
+            max-width: 200px;
+            margin-top: 15px;
+            display: none;
+            border-radius: 10px;
+            border: 2px solid #ddd;
+        }
+        
+        .payment-instruction {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #fff8e1;
+            border-radius: 8px;
+            font-size: 14px;
+            text-align: center;
+            display: none;
+        }
+        
+        .footer {
+            margin-top: auto;
+            padding: 20px;
+            text-align: center;
+            color: #333;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">WILX DIGITAL</div>
+    </div>
+    
+    <div class="game-container">
+        <h2>Pilih Game</h2>
+        
+        <div class="game-selector" onclick="showGameContent('freefire')">
+            <img src="https://img.icons8.com/color/48/000000/free-fire.png" alt="Free Fire" class="game-icon">
+            <span>Free Fire</span>
+        </div>
+        
+        <div id="freefire-content" class="game-content">
+            <input type="text" id="freefire-id" class="input-field" placeholder="Masukkan ID Free Fire">
+            
+            <h3>Pilih Diamond:</h3>
+            
+            <div class="diamond-option" onclick="selectDiamond('5 Diamond', 'Rp 890')">
+                <span>5 Diamond</span>
+                <span>Rp 890</span>
+            </div>
+            
+            <div class="diamond-option" onclick="selectDiamond('12 Diamond', 'Rp 1.890')">
+                <span>12 Diamond</span>
+                <span>Rp 1.890</span>
+            </div>
+            
+            <div class="diamond-option" onclick="selectDiamond('Membership Level Up Pass-Level 6', 'Rp 4.850')">
+                <span>Membership Level Up Pass-Level 6</span>
+                <span>Rp 4.850</span>
+            </div>
+            
+            <div class="diamond-option" onclick="selectDiamond('50 Diamond', 'Rp 6.800')">
+                <span>50 Diamond</span>
+                <span>Rp 6.800</span>
+            </div>
+            
+            <div class="diamond-option" onclick="selectDiamond('Membership Level Up Pass-Level 10', 'Rp 8.000')">
+                <span>Membership Level Up Pass-Level 10</span>
+                <span>Rp 8.000</span>
+            </div>
+            
+            <div class="diamond-option" onclick="selectDiamond('Membership Level Up Pass-Level 15', 'Rp 8.500')">
+                <span>Membership Level Up Pass-Level 15</span>
+                <span>Rp 8.500</span>
+            </div>
+            
+            <div class="diamond-option" onclick="selectDiamond('Membership Level Up Pass-Level 20', 'Rp 8.500')">
+                <span>Membership Level Up Pass-Level 20</span>
+                <span>Rp 8.500</span>
+            </div>
+            
+            <div class="diamond-option" onclick="selectDiamond('Membership Level Up Pass-Level 25', 'Rp 9.000')">
+                <span>Membership Level Up Pass-Level 25</span>
+                <span>Rp 9.000</span>
+            </div>
+            
+            <div class="diamond-option" onclick="selectDiamond('70 Diamond', 'Rp 8.500')">
+                <span>70 Diamond</span>
+                <span>Rp 8.500</span>
+            </div>
+            
+            <div class="diamond-option" onclick="selectDiamond('100 Diamond', 'Rp 12.900')">
+                <span>100 Diamond</span>
+                <span>Rp 12.900</span>
+            </div>
+            
+            <div class="diamond-option" onclick="selectDiamond('140 Diamond', 'Rp 18.000')">
+                <span>140 Diamond</span>
+                <span>Rp 18.000</span>
+            </div>
+            
+            <div class="diamond-option" onclick="selectDiamond('355 Diamond', 'Rp 44.000')">
+                <span>355 Diamond</span>
+                <span>Rp 44.000</span>
+            </div>
+            
+            <div class="diamond-option" onclick="selectDiamond('Membership Bulanan 50Dm', 'Rp 79.000')">
+                <span>Membership Bulanan 50Dm</span>
+                <span>Rp 79.000</span>
+            </div>
+            
+            <div class="diamond-option" onclick="selectDiamond('500 Diamond', 'Rp 62.000')">
+                <span>500 Diamond</span>
+                <span>Rp 62.000</span>
+            </div>
+            
+            <div id="whatsapp-section" style="display: none;">
+                <input type="text" id="whatsapp-number" class="input-field" placeholder="Masukkan No WhatsApp Aktif Anda">
+                
+                <div class="payment-method">
+                    <h3>Metode Pembayaran:</h3>
+                    <button class="qris-btn" onclick="processPayment()">QRIS</button>
+                    <img id="qris-image" class="qris-image" src="https://files.catbox.moe/hmz88o.jpg" alt="QRIS Payment">
+                    <div id="payment-instruction" class="payment-instruction">
+                        TRANSFER SESUAI ITEM YANG DIPILIH<br>
+                        BAWA BUKTI TRANSFER KE NO ADMIN
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        © By @WilxStore
+    </div>
+    
+    <script>
+        let selectedProduct = '';
+        let selectedPrice = '';
+        const adminNumber = '628317501824'; // Nomor WhatsApp admin
+        
+        function showGameContent(game) {
+            document.getElementById('freefire-content').style.display = 'block';
+        }
+        
+        function selectDiamond(product, price) {
+            selectedProduct = product;
+            selectedPrice = price;
+            document.getElementById('whatsapp-section').style.display = 'block';
+            
+            // Scroll to WhatsApp input
+            document.getElementById('whatsapp-number').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+        
+        function processPayment() {
+            const whatsappNumber = document.getElementById('whatsapp-number').value;
+            const freefireId = document.getElementById('freefire-id').value;
+            
+            if (!whatsappNumber) {
+                alert('Harap masukkan nomor WhatsApp terlebih dahulu');
+                return;
+            }
+            
+            if (!freefireId) {
+                alert('Harap masukkan ID Free Fire terlebih dahulu');
+                return;
+            }
+            
+            // Show QRIS image and payment instruction
+            document.getElementById('qris-image').style.display = 'block';
+            document.getElementById('payment-instruction').style.display = 'block';
+            
+            // Kirim notifikasi ke WhatsApp admin
+            sendWhatsAppNotification(whatsappNumber, freefireId);
+        }
+        
+        function sendWhatsAppNotification(whatsappNumber, freefireId) {
+            const message = `INFORMASI TRANSAKSI NIH%0AITEM: ${selectedProduct} (${selectedPrice})%0AID: ${freefireId}%0ANO PEMESAN: ${whatsappNumber}`;
+            
+            // Buka WhatsApp dengan pesan otomatis
+            window.open(`https://wa.me/${adminNumber}?text=${message}`, '_blank');
+            
+            // Tampilkan konfirmasi ke pengguna
+            alert('Silahkan selesaikan pembayaran melalui QRIS di atas. Admin telah menerima notifikasi pesanan Anda.');
+        }
+    </script>
+</body>
+</html>
